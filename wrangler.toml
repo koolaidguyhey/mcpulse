@@ -6,3 +6,8 @@ workers_dev = true
 
 [triggers]
 crons = ["0 5 * * *"]
+
+# ...
+[vars]
+SUPABASE_URL = "https://urjyazocvydklzsllbbv.supabase.co/rest/v1/"
+# ...
