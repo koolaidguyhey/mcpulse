@@ -1,0 +1,8 @@
+name = "mc-pulse-api"
+main = "worker.js"
+compatibility_date = "2026-11-12"
+compatibility_flags = ["nodejs_compat"]
+workers_dev = true
+
+[triggers]
+crons = ["0 5 * * *"]

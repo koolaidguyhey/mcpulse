@@ -1,0 +1,44 @@
+name: Backend validation
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'backend/**'
+      - 'worker.js'
+      - 'wrangler.toml'
+      - 'package.json'
+      - 'database/**'
+      - '.github/workflows/backend-ci.yml'
+  pull_request:
+    paths:
+      - 'backend/**'
+      - 'worker.js'
+      - 'wrangler.toml'
+      - 'package.json'
+      - 'database/**'
+      - '.github/workflows/backend-ci.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: backend/package-lock.json
+      - name: Install locked dependencies
+        working-directory: backend
+        run: npm ci
+      - name: Syntax checks
+        working-directory: backend
+        run: |
+          for file in src/*.js scripts/*.js test/*.js; do node --check "$file"; done
+      - name: Worker entry syntax
+        run: node --check worker.js
+      - name: Unit tests
+        working-directory: backend
+        run: npm test
