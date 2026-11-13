@@ -9,5 +9,8 @@ crons = ["0 5 * * *"]
 
 # ...
 [vars]
+CORS_ORIGINS = "https://koolaidguyhey.github.io"
+RATE_LIMIT_PER_MINUTE = "60"
+REQUEST_TIMEOUT_MS = "5000"
 SUPABASE_URL = "https://urjyazocvydklzsllbbv.supabase.co/rest/v1/"
 # ...
